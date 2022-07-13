@@ -12,8 +12,8 @@ import com.example.synctecharchitectures.mvi.ui.CountryScreenState
 class ReadCountriesReducer : Reducer {
 
     override fun reduce(currentState: State, action: Action): State {
-        var countryScreenState = currentState as CountryScreenState
-        var countryAction = action as ReadCountryAction
+        val countryScreenState = currentState as CountryScreenState
+        val countryAction = action as ReadCountryAction
 
         return reduce(countryScreenState, countryAction)
     }
@@ -23,17 +23,14 @@ class ReadCountriesReducer : Reducer {
         action: ReadCountryAction
     ): CountryScreenState {
         return when (action) {
-            is ReadCountryAction.FetchCountries -> currentState.copy(showLoading = false)
-            is ReadCountryAction.CountriesLoaded -> {
-                val newState = currentState.copy (
-                    showLoading = false,
-                    countries = action.countries
-                )
-                return newState
-            }
+            is ReadCountryAction.FetchingCountries -> currentState.copy(showLoading = true)
+            is ReadCountryAction.CountriesLoaded -> currentState.copy(
+                showLoading = false,
+                countries = action.countries
+            )
+
             else -> currentState
         }
     }
-
 
 }

@@ -1,5 +1,6 @@
 package com.example.synctecharchitectures.mvi.domain
 
+import android.util.Log
 import com.example.synctecharchitectures.model.coroutines.CountriesService
 import com.example.synctecharchitectures.mvi.domain.analytics.AnalyticsTracker
 import com.example.synctecharchitectures.mvi.domain.analytics.CountryLoadedTracker
