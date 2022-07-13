@@ -3,6 +3,6 @@ package com.example.synctecharchitectures.model
 import com.google.gson.annotations.SerializedName
 
 data class Country(
-    @SerializedName("name")
+    @SerializedName("region")
     var countryName: String
 )
