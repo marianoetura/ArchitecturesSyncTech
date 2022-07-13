@@ -5,11 +5,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.synctecharchitectures.R
+import com.example.synctecharchitectures.databinding.ActivityMviactivityBinding
+import com.example.synctecharchitectures.databinding.ActivitySynctecharchBinding
 
 class MVIActivity : AppCompatActivity() {
+
+
+    private lateinit var binding: ActivityMviactivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mviactivity)
+        binding = ActivityMviactivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     companion object {
