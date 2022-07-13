@@ -15,9 +15,12 @@ class SyncTechArchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_synctecharch)
+        binding = ActivitySynctecharchBinding.inflate(layoutInflater)
         binding.ButtonMVI.setOnClickListener { onMVI() }
-        binding.ButtonMVP.setOnClickListener { onMVP()
-        binding.ButtonMVVM.setOnClickListener { onMVVM() }}
+        binding.ButtonMVP.setOnClickListener {
+            onMVP()
+            binding.ButtonMVVM.setOnClickListener { onMVVM() }
+        }
     }
 
     private fun onMVP() {

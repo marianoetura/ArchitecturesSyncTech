@@ -27,6 +27,7 @@ class MVPActivity : AppCompatActivity(), MVPView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMvpactivityBinding.inflate(layoutInflater)
         title = "MVP Activity"
         presenter = MVPPresenter(this)
         presenter.initPresenter()
