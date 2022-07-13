@@ -4,6 +4,6 @@ import com.example.synctecharchitectures.model.Country
 import com.example.synctecharchitectures.mvi.redux.State
 
 data class CountryScreenState(
-    val countries: List<Country>?,
-    val showLoading: Boolean,
+    var countries: List<Country>?,
+    var showLoading: Boolean,
 ) : State
