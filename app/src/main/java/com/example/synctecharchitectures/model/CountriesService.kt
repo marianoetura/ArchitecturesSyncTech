@@ -7,8 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class CountriesService {
     private val api: CountriesApi
-    val countries: Single<List<Country>>
-        get() = api.getCountries()
+    fun getCountries(): Single<List<Country>> = api.getCountries()
 
     companion object {
         const val BASE_URL = "https://restcountries.eu/rest/v2/"
