@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.synctecharchitectures.R
 import com.example.synctecharchitectures.databinding.ActivityMvpactivityBinding
+import com.example.synctecharchitectures.model.Country
 import com.example.synctecharchitectures.mvp.presenter.MVPPresenter
 import com.example.synctecharchitectures.mvp.view.MVPView
 
@@ -28,37 +29,52 @@ class MVPActivity : AppCompatActivity(), MVPView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMvpactivityBinding.inflate(layoutInflater)
-        title = "MVP Activity"
+        setContentView(binding.root)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        drawScreen()
         presenter = MVPPresenter(this)
         presenter.initPresenter()
+    }
+
+    private fun drawScreen() {
+        title = "MVP Activity"
         list = binding.list
-        retryButton = findViewById(R.id.retryButton)
-        progress = findViewById(R.id.progress)
-        adapter = ArrayAdapter(this, R.layout.row_layout, listValues)
-        list.setAdapter(adapter)
-        list.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
+        retryButton = binding.retryButton
+        progress = binding.progress
+        adapter = ArrayAdapter(this, R.layout.row_layout, R.id.listText, listValues)
+        list.adapter = adapter
+        list.onItemClickListener = OnItemClickListener { _, _, position, _ ->
             Toast.makeText(
                 this@MVPActivity,
                 "You clicked " + listValues[position],
                 Toast.LENGTH_SHORT
             ).show()
-        })
+        }
     }
 
-    override fun setValues(countries: List<String>) {
-        listValues.clear()
-        listValues.addAll(countries)
-        retryButton!!.visibility = View.GONE
-        progress!!.visibility = View.GONE
-        list.visibility = View.VISIBLE
-        adapter!!.notifyDataSetChanged()
+    override fun setValues(countries: List<Country>) {
+        runOnUiThread {
+            listValues.clear()
+            countries.forEach {
+                listValues.add(it.countryName)
+            }
+            retryButton!!.visibility = View.GONE
+            progress!!.visibility = View.GONE
+            list.visibility = View.VISIBLE
+            adapter!!.notifyDataSetChanged()
+        }
     }
 
     override fun onError() {
-        Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show()
-        progress!!.visibility = View.GONE
-        list.visibility = View.GONE
-        retryButton!!.visibility = View.VISIBLE
+        runOnUiThread {
+            Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show()
+            progress!!.visibility = View.GONE
+            list.visibility = View.GONE
+            retryButton!!.visibility = View.VISIBLE
+        }
     }
 
     fun onRetry() {
