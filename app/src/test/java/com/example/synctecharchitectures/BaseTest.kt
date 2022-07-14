@@ -24,7 +24,7 @@ open class BaseTest {
 
     /** You should call this super before anything else*/
     open fun setup() {
-        MockKAnnotations.init(this)
+        MockKAnnotations.init(this, relaxed = true)
     }
 
     @After
