@@ -21,13 +21,39 @@ class MVPPresenterTest : BaseTest() {
     @Before
     override fun setup() {
         super.setup()
-        mvpPresenter = MVPPresenter(mvpView)
+        mvpPresenter = MVPPresenter(mvpView, countriesService)
     }
 
     @Test
-    fun whenInitPresenterItShouldFetchCountries() = runTest {
+    fun whenFetchValuesIsSuccess() = runTest {
+        coEvery { mvpView.showLoading() } returns Unit
         coEvery { countriesService.getCountries() } returns Response.success(countryList)
+        coEvery { mvpView.setValues(countryList) } returns Unit
         mvpPresenter.initPresenter()
+        coVerify { mvpView.showLoading() }
         coVerify { countriesService.getCountries() }
+        coVerify { mvpView.setValues(countryList) }
+    }
+
+    @Test
+    fun whenFetchValuesIsFailed() = runTest {
+        coEvery { mvpView.showLoading() } returns Unit
+        coEvery { countriesService.getCountries() } throws Exception()
+        coEvery { mvpView.onError() } returns Unit
+        mvpPresenter.initPresenter()
+        coVerify { mvpView.showLoading() }
+        coVerify { countriesService.getCountries() }
+        coVerify { mvpView.onError() }
+    }
+
+    @Test
+    fun whenSuccessFetchValuesOnRefresh() = runTest {
+        coEvery { mvpView.showLoading() } returns Unit
+        coEvery { countriesService.getCountries() } returns Response.success(countryList)
+        coEvery { mvpView.setValues(countryList) } returns Unit
+        mvpPresenter.onRefresh()
+        coVerify { mvpView.showLoading() }
+        coVerify { countriesService.getCountries() }
+        coVerify { mvpView.setValues(countryList) }
     }
 }
