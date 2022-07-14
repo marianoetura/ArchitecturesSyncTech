@@ -1,6 +1,6 @@
 package com.example.synctecharchitectures.mvi.domain
 
-import com.example.synctecharchitectures.model.coroutines.CountriesService
+import com.example.synctecharchitectures.model.CountriesFromWebRepository
 import com.example.synctecharchitectures.mvi.redux.Action
 import com.example.synctecharchitectures.mvi.redux.Middleware
 import com.example.synctecharchitectures.mvi.redux.State
@@ -8,10 +8,10 @@ import com.example.synctecharchitectures.mvi.redux.Store
 
 /**
  * This is a custom [Middleware] that processes any [CountryScreenAction]s and triggers a
- * corresponding data request to our [CountriesService] if necessary.
+ * corresponding data request to our [CountriesFromWebRepository] if necessary.
  */
 class GetDataMiddleware(
-    private val countriesService: CountriesService,
+    private val countriesFromWebRepository: CountriesFromWebRepository,
 ) : Middleware {
 
     override suspend fun process(action: Action, currentState: State, store: Store) {
@@ -33,7 +33,7 @@ class GetDataMiddleware(
     private suspend fun fetchPreferences(store: CountryStore) {
         store.dispatch(CountryScreenAction.FetchingCountries)
 
-        countriesService.getCountries().run {
+        countriesFromWebRepository.fetchCountries().run {
             val countriesList = body()
             if (isSuccessful && countriesList != null) {
                 store.dispatch(CountryScreenAction.CountriesLoaded(countriesList))

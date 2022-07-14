@@ -3,7 +3,7 @@ package com.example.synctecharchitectures
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.synctecharchitectures.databinding.SyncTechArchitecturesActivityBinding
-import com.example.synctecharchitectures.mvi.MVIActivity
+import com.example.synctecharchitectures.mvi.ui.MVIActivity
 import com.example.synctecharchitectures.mvp.MVPActivity
 import com.example.synctecharchitectures.mvvm.MVVMActivity
 

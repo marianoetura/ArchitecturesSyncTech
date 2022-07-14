@@ -24,7 +24,7 @@ class AnalyticsMiddleware(
     private fun process(action: CountryScreenAction) {
         when (action) {
             is CountriesLoaded -> {
-                analyticsTracker.trackEvent(CountryLoadedEvent())
+                analyticsTracker.trackEvent(CountryLoadedEvent)
             }
         }
     }

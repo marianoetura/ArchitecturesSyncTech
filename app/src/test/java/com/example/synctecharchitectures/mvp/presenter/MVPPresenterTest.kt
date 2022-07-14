@@ -21,39 +21,37 @@ class MVPPresenterTest : BaseTest() {
     @Before
     override fun setup() {
         super.setup()
-        mvpPresenter = MVPPresenter(mvpView, countriesService)
+        mvpPresenter = MVPPresenter(mvpView, countryRepository)
+        coEvery { mvpView.showLoading() } returns Unit
     }
 
     @Test
     fun whenFetchValuesIsSuccess() = runTest {
-        coEvery { mvpView.showLoading() } returns Unit
-        coEvery { countriesService.getCountries() } returns Response.success(countryList)
+        coEvery { countryRepository.fetchCountries() } returns Response.success(countryList)
         coEvery { mvpView.setValues(countryList) } returns Unit
         mvpPresenter.initPresenter()
         coVerify { mvpView.showLoading() }
-        coVerify { countriesService.getCountries() }
+        coVerify { countryRepository.fetchCountries() }
         coVerify { mvpView.setValues(countryList) }
     }
 
     @Test
     fun whenFetchValuesIsFailed() = runTest {
-        coEvery { mvpView.showLoading() } returns Unit
-        coEvery { countriesService.getCountries() } throws Exception()
+        coEvery { countryRepository.fetchCountries() } throws Exception()
         coEvery { mvpView.onError() } returns Unit
         mvpPresenter.initPresenter()
         coVerify { mvpView.showLoading() }
-        coVerify { countriesService.getCountries() }
+        coVerify { countryRepository.fetchCountries() }
         coVerify { mvpView.onError() }
     }
 
     @Test
     fun whenSuccessFetchValuesOnRefresh() = runTest {
-        coEvery { mvpView.showLoading() } returns Unit
-        coEvery { countriesService.getCountries() } returns Response.success(countryList)
+        coEvery { countryRepository.fetchCountries() } returns Response.success(countryList)
         coEvery { mvpView.setValues(countryList) } returns Unit
         mvpPresenter.onRefresh()
         coVerify { mvpView.showLoading() }
-        coVerify { countriesService.getCountries() }
+        coVerify { countryRepository.fetchCountries() }
         coVerify { mvpView.setValues(countryList) }
     }
 }

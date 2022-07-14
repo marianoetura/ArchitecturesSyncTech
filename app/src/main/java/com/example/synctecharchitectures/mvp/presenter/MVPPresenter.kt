@@ -1,6 +1,6 @@
 package com.example.synctecharchitectures.mvp.presenter
 
-import com.example.synctecharchitectures.model.coroutines.CountriesService
+import com.example.synctecharchitectures.model.CountriesFromWebRepository
 import com.example.synctecharchitectures.mvp.view.MVPView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class MVPPresenter(
     private val view: MVPView,
-    private val service: CountriesService = CountriesService(),
+    private val service: CountriesFromWebRepository = CountriesFromWebRepository(),
     private val scope: CoroutineScope = CoroutineScope(Job() + Dispatchers.IO)
 
 ) {
@@ -20,7 +20,7 @@ class MVPPresenter(
     private suspend fun fetchCountries() {
         view.showLoading()
         try {
-            service.getCountries().body()?.let {
+            service.fetchCountries().body()?.let {
                 view.setValues(it)
             }
         } catch (ignored: Exception) {

@@ -1,7 +1,7 @@
 package com.example.synctecharchitectures
 
-import com.example.synctecharchitectures.model.Country
-import com.example.synctecharchitectures.model.coroutines.CountriesService
+import com.example.synctecharchitectures.model.dto.Country
+import com.example.synctecharchitectures.model.CountriesFromWebRepository
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.impl.annotations.MockK
@@ -10,13 +10,13 @@ import org.junit.Before
 
 open class BaseTest {
     @MockK
-    lateinit var countriesService: CountriesService
+    lateinit var countryRepository: CountriesFromWebRepository
 
-    val argentina = Country(ARGENTINA)
-    val uruguay = Country(URUGUAY)
-    val peru = Country(PERU)
-    val brasil = Country(BRASIL)
-    val chile = Country(CHILE)
+    private val argentina = Country(ARGENTINA)
+    private val uruguay = Country(URUGUAY)
+    private val peru = Country(PERU)
+    private val brasil = Country(BRASIL)
+    private val chile = Country(CHILE)
 
     val countryList = listOf(argentina, uruguay, peru, brasil, chile)
 

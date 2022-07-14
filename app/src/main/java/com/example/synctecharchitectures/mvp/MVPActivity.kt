@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.synctecharchitectures.databinding.ArchitectureActivityBinding
-import com.example.synctecharchitectures.model.Country
+import com.example.synctecharchitectures.model.dto.Country
 import com.example.synctecharchitectures.mvp.presenter.MVPPresenter
 import com.example.synctecharchitectures.mvp.view.MVPView
 import com.example.synctecharchitectures.ui.CountriesView

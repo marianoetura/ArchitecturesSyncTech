@@ -1,4 +1,4 @@
-package com.example.synctecharchitectures.model
+package com.example.synctecharchitectures.model.dto
 
 import com.google.gson.annotations.SerializedName
 

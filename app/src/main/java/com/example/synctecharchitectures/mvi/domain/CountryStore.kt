@@ -1,6 +1,6 @@
 package com.example.synctecharchitectures.mvi.domain
 
-import com.example.synctecharchitectures.model.coroutines.CountriesService
+import com.example.synctecharchitectures.model.CountriesFromWebRepository
 import com.example.synctecharchitectures.mvi.domain.analytics.AnalyticsMiddleware
 import com.example.synctecharchitectures.mvi.domain.analytics.CountryLoadedTracker
 import com.example.synctecharchitectures.mvi.redux.Action
@@ -18,7 +18,7 @@ class CountryStore(
     initialState: CountryScreenState = CountryScreenState(),
     private val reducer: CountryStateReducer = CountryStateReducer(),
     private val middlewares: List<Middleware> = listOf(
-        GetDataMiddleware(CountriesService()),
+        GetDataMiddleware(CountriesFromWebRepository()),
         AnalyticsMiddleware(CountryLoadedTracker()),
     )
 ): Store {

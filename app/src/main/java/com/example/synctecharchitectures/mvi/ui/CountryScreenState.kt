@@ -1,6 +1,6 @@
 package com.example.synctecharchitectures.mvi.ui
 
-import com.example.synctecharchitectures.model.Country
+import com.example.synctecharchitectures.model.dto.Country
 import com.example.synctecharchitectures.mvi.redux.State
 
 data class CountryScreenState(

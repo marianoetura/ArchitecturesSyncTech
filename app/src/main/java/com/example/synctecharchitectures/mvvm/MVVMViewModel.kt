@@ -3,12 +3,12 @@ package com.example.synctecharchitectures.mvvm
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.synctecharchitectures.model.Country
-import com.example.synctecharchitectures.model.coroutines.CountriesService
+import com.example.synctecharchitectures.model.dto.Country
+import com.example.synctecharchitectures.model.CountriesFromWebRepository
 import kotlinx.coroutines.launch
 
 class MVVMViewModel(
-    private val service: CountriesService = CountriesService()
+    private val countryRepository: CountriesFromWebRepository = CountriesFromWebRepository()
 ) : ViewModel() {
 
     val countries: MutableLiveData<List<Country>> = MutableLiveData()
@@ -22,7 +22,7 @@ class MVVMViewModel(
     private suspend fun fetchCountries() {
         loading.value = true
         try {
-            countries.value = service.getCountries().body()
+            countries.value = countryRepository.fetchCountries().body()
             error.value = false
             loading.value = false
         } catch (ignored: Exception) {

@@ -19,7 +19,7 @@
             android:name=".mvp.MVPActivity"
             android:exported="false" />
         <activity
-            android:name=".mvi.MVIActivity"
+            android:name=".mvi.ui.MVIActivity"
             android:exported="false" />
         <activity
             android:name=".SyncTechArchActivity"

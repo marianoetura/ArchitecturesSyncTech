@@ -1,4 +1,4 @@
-package com.example.synctecharchitectures.mvi
+package com.example.synctecharchitectures.mvi.ui
 
 import android.content.Context
 import android.content.Intent

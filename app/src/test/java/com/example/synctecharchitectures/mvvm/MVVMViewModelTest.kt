@@ -3,14 +3,13 @@ package com.example.synctecharchitectures.mvvm
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.synctecharchitectures.BaseTest
-import com.example.synctecharchitectures.model.Country
+import com.example.synctecharchitectures.model.dto.Country
 import io.mockk.Called
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -43,7 +42,7 @@ class MVVMViewModelTest : BaseTest() {
     override fun setup() {
         super.setup()
         Dispatchers.setMain(coroutineDispatcher)
-        mvvmViewModel = MVVMViewModel(countriesService)
+        mvvmViewModel = MVVMViewModel(countryRepository)
         mvvmViewModel.countries.observeForever(countriesObserver)
         mvvmViewModel.error.observeForever(errorObserver)
         mvvmViewModel.loading.observeForever(loadingObserver)
@@ -57,10 +56,10 @@ class MVVMViewModelTest : BaseTest() {
 
     @Test
     fun whenFetchCountriesIsSuccess() = runTest {
-        coEvery { countriesService.getCountries() } returns Response.success(countryList)
+        coEvery { countryRepository.fetchCountries() } returns Response.success(countryList)
         mvvmViewModel.onRefresh()
         coVerify { loadingObserver.onChanged(true) }
-        coVerify { countriesService.getCountries() }
+        coVerify { countryRepository.fetchCountries() }
         coVerify { countriesObserver.onChanged(countryList) }
         coVerify { loadingObserver.onChanged(false) }
         coVerify { errorObserver.onChanged(false) }
@@ -68,9 +67,9 @@ class MVVMViewModelTest : BaseTest() {
 
     @Test
     fun whenFetchCountriesIsFailed() = runTest {
-        coEvery { countriesService.getCountries() } throws Exception()
+        coEvery { countryRepository.fetchCountries() } throws Exception()
         mvvmViewModel.onRefresh()
-        coVerify { countriesService.getCountries() }
+        coVerify { countryRepository.fetchCountries() }
         coVerify { loadingObserver.onChanged(true) }
         coVerify { loadingObserver.onChanged(false) }
         coVerify { errorObserver.onChanged(true) }
