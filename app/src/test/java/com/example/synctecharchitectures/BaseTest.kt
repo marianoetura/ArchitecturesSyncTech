@@ -1,7 +1,8 @@
 package com.example.synctecharchitectures
 
-import com.example.synctecharchitectures.model.dto.Country
+import com.example.synctecharchitectures.domain.analytics.AnalyticsTracker
 import com.example.synctecharchitectures.model.CountriesFromWebRepository
+import com.example.synctecharchitectures.model.dto.Country
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks
 import io.mockk.impl.annotations.MockK
@@ -12,11 +13,14 @@ open class BaseTest {
     @MockK
     lateinit var countryRepository: CountriesFromWebRepository
 
-    private val argentina = Country(ARGENTINA)
-    private val uruguay = Country(URUGUAY)
-    private val peru = Country(PERU)
-    private val brasil = Country(BRASIL)
-    private val chile = Country(CHILE)
+    @MockK
+    lateinit var analyticsTracker: AnalyticsTracker
+
+    val argentina = Country(ARGENTINA)
+    val uruguay = Country(URUGUAY)
+    val peru = Country(PERU)
+    val brasil = Country(BRASIL)
+    val chile = Country(CHILE)
 
     val countryList = listOf(argentina, uruguay, peru, brasil, chile)
 
