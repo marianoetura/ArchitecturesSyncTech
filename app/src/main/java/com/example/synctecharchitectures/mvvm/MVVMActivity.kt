@@ -15,7 +15,7 @@ class MVVMActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setActivityUI("MVI Activity")
+        setActivityUI("MVVM Activity")
         setViewModel()
     }
 
