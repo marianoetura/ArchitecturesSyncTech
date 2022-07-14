@@ -1,4 +1,4 @@
-package com.example.synctecharchitectures.mvi.domain.analytics
+package com.example.synctecharchitectures.domain.analytics
 
 
 /**

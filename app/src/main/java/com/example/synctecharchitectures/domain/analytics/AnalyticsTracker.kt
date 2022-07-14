@@ -1,4 +1,4 @@
-package com.example.synctecharchitectures.mvi.domain.analytics
+package com.example.synctecharchitectures.domain.analytics
 /**
  * An [AnalyticsTracker] is any service that has the ability to process [AnalyticsEvent]s and send
  * them to a service to be recorded.

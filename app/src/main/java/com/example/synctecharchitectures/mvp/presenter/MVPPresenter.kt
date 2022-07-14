@@ -18,11 +18,12 @@ class MVPPresenter(
     }
 
     private suspend fun fetchCountries() {
+        view.showLoading()
         try {
             service.getCountries().body()?.let {
                 view.setValues(it)
             }
-        } catch (ex: Exception) {
+        } catch (ignored: Exception) {
             view.onError()
         }
     }
